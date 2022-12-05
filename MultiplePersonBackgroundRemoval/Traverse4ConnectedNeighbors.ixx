@@ -13,7 +13,8 @@ export module Traverse4ConnectedNeighbors;
 
 import Const;
 
-#define SHOW_4_CONNECTED_TRAVERSE   // Uncomment to show the visualization of traversing 4-connected neighbors.
+// Set to true to show the visualization of traversing 4-connected neighbors.
+constexpr bool SHOW_4_CONNECTED_TRAVERSE = true;
 
 // Assume Moving speed at any direction max: 100 cm/s
 constexpr int CONNECTED_THRESHOLD = 12;    // => n*16mm. Based on human body contour. 
@@ -39,10 +40,11 @@ static std::vector<Point2i>& List4ConnectedNeighbors(const Point2i& centerPoint)
     return neighbors;
 }
 
-#ifdef SHOW_4_CONNECTED_TRAVERSE
 // Accumulate checked zones.
 static void DisplayZonesChecked(const Point2i& zone, Mat& imgZonesConnected)
 {
+    if (!SHOW_4_CONNECTED_TRAVERSE) return;
+
     static bool drawing = true;
     if (!drawing) return;
 
@@ -56,7 +58,6 @@ static void DisplayZonesChecked(const Point2i& zone, Mat& imgZonesConnected)
         if (27 == cv::waitKey(1)) drawing = false;
     }
 }
-#endif
 
 // Traverse 4-connected neighbors from a center point.
 export void DetectConnectedComponent(const Mat& imgDepth, const Point2i& center, Mat& imgConnectedMask)
@@ -68,17 +69,15 @@ export void DetectConnectedComponent(const Mat& imgDepth, const Point2i& center,
     imgConnectedMask.at<uint8_t>(center.y, center.x) = MARK_BINARY;   // Initial center marked.
     listToCheck.push(center);  // Starting point
 
-#ifdef SHOW_4_CONNECTED_TRAVERSE
-    Mat imgZonesConnected = Mat::zeros(imgDepth.size(), CV_8UC1);   // A new image for each frame.
-#endif
+    Mat imgZonesConnected;
+    if (SHOW_4_CONNECTED_TRAVERSE)
+        imgZonesConnected = Mat::zeros(imgDepth.size(), CV_8UC1);   // A new image for each frame.
 
     // Loop through all connected zones. Time consuming.
     while (listToCheck.size() > 0)
     {
         const Point2i& centerPoint = listToCheck.front();  // Ref for speed. Get one zone at the front of the queue.
-#ifdef SHOW_4_CONNECTED_TRAVERSE
         DisplayZonesChecked(centerPoint, imgZonesConnected);
-#endif
         const int centerDistance = imgDepth.at<uint8_t>(centerPoint.y, centerPoint.x);
         for (const auto& pt : List4ConnectedNeighbors(centerPoint))
         {
