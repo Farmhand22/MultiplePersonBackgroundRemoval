@@ -13,7 +13,7 @@ export module Traverse4ConnectedNeighbors;
 
 import Const;
 
-//#define SHOW_4_CONNECTED_TRAVERSE   // Uncomment to show the visualization of traversing 4-connected neighbors.
+#define SHOW_4_CONNECTED_TRAVERSE   // Uncomment to show the visualization of traversing 4-connected neighbors.
 
 // Assume Moving speed at any direction max: 100 cm/s
 constexpr int CONNECTED_THRESHOLD = 12;    // => n*16mm. Based on human body contour. 
@@ -46,13 +46,11 @@ static void DisplayZonesChecked(const Point2i& zone, Mat& imgZonesConnected)
     static bool drawing = true;
     if (!drawing) return;
 
-    using namespace std::chrono_literals;
-    imgZonesConnected.at<uint8_t>(zone.y, zone.x) = MARK_BINARY;
-
+    imgZonesConnected.at<uint8_t>(zone.y, zone.x) = MARK_BINARY;    // Marked connected.
     constexpr int zonesPerStep = 64;
     static int counter = 0;
     counter++;
-    if ((counter < zonesPerStep) || (0 == (counter % zonesPerStep)))
+    if ((counter < (zonesPerStep * 2)) || (0 == (counter % zonesPerStep)))
     {
         cv::imshow("4-Connected Zones", imgZonesConnected);
         if (27 == cv::waitKey(1)) drawing = false;
@@ -86,6 +84,7 @@ export void DetectConnectedComponent(const Mat& imgDepth, const Point2i& center,
         {
             uint8_t& zoneByte = imgConnectedMask.at<uint8_t>(pt.y, pt.x);
             if (zoneByte) continue; // Already checked.
+            // Check if distance change is within connected threshold.
             if (abs(centerDistance - imgDepth.at<uint8_t>(pt.y, pt.x)) <= CONNECTED_THRESHOLD)
             {
                 listToCheck.push(pt);
