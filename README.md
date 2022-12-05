@@ -1,16 +1,14 @@
 # Multiple-Person Background Removal Using Orbbec Femto Developer Kit
 
-© Copyright 2022 Farmhand.
-
 ## Team Name: Farmhand
 
 ## Folder Structure
 
 ```txt
 (SolutionDir)
-├─MultiplePersonBackgroundRemoval.sln   // Visual Studio 2022 solution
+├─MultiplePersonBackgroundRemoval.sln  // Visual Studio 2022 solution
 |
-├─MultiplePersonBackgroundRemoval   // Project files
+├─MultiplePersonBackgroundRemoval      // Project files
 │
 └─SDK               //SDK headers and libraries
     ├─include       //SDK headers
@@ -20,7 +18,7 @@
 
 ## OS Used for Development
 
-Microsoft Windows [Version 10.0.19042.2130]
+Microsoft Windows [Version 10.0.19042.2130], 64-bit.
 
 ## Build the Solution
 
@@ -48,3 +46,9 @@ opencv4[webp]:x64-windows                                           WebP support
 opencv:x64-windows                                 4.5.5#1          Computer vision library
 opencv[default-features]:x64-windows                                Platform-dependent default features
 ```
+
+## License
+
+© Copyright 2022 Farmhand.
+
+Licensed under the [MIT](LICENSE) license.
