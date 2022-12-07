@@ -14,7 +14,7 @@ export module Traverse4ConnectedNeighbors;
 import Const;
 
 // Set to true to show the visualization of traversing 4-connected neighbors.
-constexpr bool SHOW_4_CONNECTED_TRAVERSE = true;
+constexpr bool SHOW_4_CONNECTED_TRAVERSE = false;
 
 // Assume Moving speed at any direction max: 100 cm/s
 constexpr int CONNECTED_THRESHOLD = 12;    // => n*16mm. Based on human body contour. 
