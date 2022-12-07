@@ -20,12 +20,6 @@
 
 Microsoft Windows [Version 10.0.19042.2130], 64-bit.
 
-## Build the Solution
-
-Start Microsoft Visual Studio 2022 and open the solution file (.sln).
-
-Build targets: x64, Debug | Release
-
 ## Requirements
 
 * OpenCV C++ Library
@@ -45,6 +39,23 @@ opencv4[tiff]:x64-windows                                           TIFF support
 opencv4[webp]:x64-windows                                           WebP support for opencv
 opencv:x64-windows                                 4.5.5#1          Computer vision library
 opencv[default-features]:x64-windows                                Platform-dependent default features
+```
+
+## Build and Run the Solution
+
+Start Microsoft Visual Studio 2022 and open the solution file (.sln).
+
+Build targets: `x64, Debug | Release`
+
+Run `MultiplePersonBackgroundRemoval.exe` under folder `x64\Release`.
+
+### Show the visualization of traversing 4-connected neighbors
+
+Modify the following constant in file `Traverse4ConnectedNeighbors.ixx` then rebuild the solution.
+
+```cpp
+// Set to true to show the visualization of traversing 4-connected neighbors.
+constexpr bool SHOW_4_CONNECTED_TRAVERSE = true;
 ```
 
 ## License
