@@ -51,4 +51,4 @@ opencv[default-features]:x64-windows                                Platform-dep
 
 © Copyright 2022 Farmhand.
 
-Licensed under the [MIT](LICENSE) license.
+Licensed under the [MIT license](LICENSE).
